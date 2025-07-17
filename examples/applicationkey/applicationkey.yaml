@@ -1,0 +1,21 @@
+apiVersion: b2.backblaze.upbound.io/v1alpha1
+kind: ApplicationKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: b2/v1alpha1/applicationkey
+    uptest.upbound.io/pre-delete-hook: ../testhooks/delete-applicationkey.sh
+  labels:
+    testing.upbound.io/example-name: example-app-key
+  name: example-app-key
+spec:
+  forProvider:
+    keyName: upbound-test-key-1752788547
+    capabilities:
+      - "listBuckets"
+      - "listFiles"
+      - "readFiles"
+      - "writeFiles"
+    bucketIdRef:
+      name: example-bucket
+  providerConfigRef:
+    name: default

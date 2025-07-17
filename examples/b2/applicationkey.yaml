@@ -1,0 +1,18 @@
+apiVersion: b2.backblaze.upbound.io/v1alpha1
+kind: ApplicationKey
+metadata:
+  name: example-app-key
+  annotations:
+    meta.upbound.io/example-id: b2/v1alpha1/applicationkey
+spec:
+  forProvider:
+    keyName: example-crossplane-key
+    capabilities:
+      - "listBuckets"
+      - "listFiles"
+      - "readFiles"
+      - "writeFiles"
+      - "deleteFiles"
+    bucketId: "example-bucket-id"
+  providerConfigRef:
+    name: default

@@ -1,35 +1,80 @@
-<!--
-Thank you for helping to improve Crossplane!
+# Description
 
-Please read through https://git.io/fj2m9 if this is your first time opening a
-Crossplane pull request. Find us in https://slack.crossplane.io/messages/dev if
-you need any help contributing.
--->
+Please include a summary of the changes and the related issue. Include relevant motivation and context.
 
-### Description of your changes
+Fixes # (issue)
 
-<!--
-Briefly describe what this pull request does. Be sure to direct your reviewers'
-attention to anything that needs special consideration.
+## Type of Change
 
-We love pull requests that resolve an open Crossplane issue. If yours does, you
-can uncomment the below line to indicate which issue your PR fixes, for example
-"Fixes #500":
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Refactoring (no functional changes)
+- [ ] Performance improvement
+- [ ] Test improvement
 
--->
-Fixes #
+## Testing
 
-I have:
+- [ ] Unit tests pass locally
+- [ ] Integration tests pass locally  
+- [ ] E2E tests pass locally
+- [ ] Manual testing completed
 
-- [ ] Read and followed Crossplane's [contribution process].
-- [ ] Run `make reviewable test` to ensure this PR is ready for review.
+### Test Configuration
 
-### How has this code been tested
+**Environment:**
+- OS: [e.g. Ubuntu 22.04]
+- Go version: [e.g. 1.21]
+- Kubernetes version: [e.g. 1.29]
 
-<!--
-Before reviewers can be confident in the correctness of this pull request, it
-needs to tested and shown to be correct. Briefly describe the testing that has
-already been done or which is planned for this change.
--->
+**Test Commands:**
+```bash
+# Add the commands you ran to test your changes
+```
 
-[contribution process]: https://git.io/fj2m9
+## Checklist
+
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] Any dependent changes have been merged and published in downstream modules
+
+## Breaking Changes
+
+- [ ] This PR introduces breaking changes
+- [ ] I have updated the migration guide
+- [ ] I have bumped the major version
+
+If yes, please describe the breaking changes and migration path:
+
+## Security
+
+- [ ] I have reviewed the security implications of my changes
+- [ ] I have not introduced any security vulnerabilities
+- [ ] I have updated security documentation if needed
+
+## Performance
+
+- [ ] I have considered the performance implications of my changes
+- [ ] I have added appropriate benchmarks if needed
+- [ ] Performance tests pass
+
+## Documentation
+
+- [ ] I have updated the README if needed
+- [ ] I have updated the API documentation if needed
+- [ ] I have updated the examples if needed
+- [ ] I have added/updated relevant comments in the code
+
+## Additional Context
+
+Add any other context about the pull request here, such as:
+- Screenshots (if applicable)
+- Related PRs
+- Deployment considerations
+- Follow-up work needed

@@ -1,0 +1,15 @@
+apiVersion: b2.backblaze.upbound.io/v1alpha1
+kind: Bucket
+metadata:
+  name: example-bucket
+  annotations:
+    meta.upbound.io/example-id: b2/v1alpha1/bucket
+spec:
+  forProvider:
+    bucketName: example-crossplane-bucket
+    bucketType: allPrivate
+    bucketInfo:
+      purpose: "Crossplane managed bucket"
+      environment: "development"
+  providerConfigRef:
+    name: default

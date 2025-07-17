@@ -1,0 +1,28 @@
+apiVersion: b2.backblaze.upbound.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: b2/v1alpha1/bucket
+    uptest.upbound.io/pre-delete-hook: ../testhooks/delete-bucket.sh
+  labels:
+    testing.upbound.io/example-name: example-bucket
+  name: example-bucket
+spec:
+  forProvider:
+    bucketName: upbound-test-bucket-1752788547
+    bucketType: allPrivate
+    bucketInfo:
+      purpose: "Crossplane uptest bucket"
+      environment: "test"
+    lifecycleRules:
+    - fileNamePrefix: "temp/"
+      daysFromUploadingToHiding: 1
+      daysFromHidingToDeleting: 7
+    corsRules:
+    - corsRuleName: "allow-all"
+      allowedOrigins: ["*"]
+      allowedOperations: ["s3_get", "s3_head"]
+      allowedHeaders: ["*"]
+      maxAgeSeconds: 3600
+  providerConfigRef:
+    name: default

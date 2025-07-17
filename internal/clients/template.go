@@ -7,6 +7,10 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+	"time"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
@@ -15,7 +19,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/terraform"
 
-	"github.com/upbound/upjet-provider-template/apis/v1beta1"
+	"github.com/markopolo123/provider-backblaze/apis/v1beta1"
 )
 
 const (
@@ -24,8 +28,36 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal backblaze credentials as JSON"
 )
+
+// validateBackblazeCredentials validates Backblaze B2 credentials by making a test API call
+func validateBackblazeCredentials(ctx context.Context, appKeyID, appKey string) error {
+	// Create a minimal HTTP client with timeout
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	// Make a test request to the Backblaze B2 API
+	req, err := http.NewRequestWithContext(ctx, "GET", "https://api.backblazeb2.com/b2api/v1/b2_authorize_account", nil)
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.SetBasicAuth(appKeyID, appKey)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("failed to authenticate with Backblaze B2: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("authentication failed with status: %d", resp.StatusCode)
+	}
+
+	return nil
+}
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
@@ -62,11 +94,26 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
+		// Validate credentials before setting configuration
+		appKeyID := creds["application_key_id"]
+		appKey := creds["application_key"]
+		
+		if appKeyID == "" || appKey == "" {
+			return ps, errors.New("missing required credentials: application_key_id and application_key")
+		}
+
+		// Skip validation in test environment
+		if os.Getenv("UPTEST_CLOUD_CREDENTIALS") == "" {
+			if err := validateBackblazeCredentials(ctx, appKeyID, appKey); err != nil {
+				return ps, errors.Wrap(err, "credential validation failed")
+			}
+		}
+
 		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{
+			"application_key_id": appKeyID,
+			"application_key":    appKey,
+		}
 		return ps, nil
 	}
 }

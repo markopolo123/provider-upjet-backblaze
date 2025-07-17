@@ -9,8 +9,12 @@ import "github.com/crossplane/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	// b2_bucket uses bucket_id field as external name since that's what's used for import
+	"b2_bucket": config.IdentifierFromProvider,
+	// b2_application_key uses application_key_id field as external name since that's what's used for import
+	"b2_application_key": config.IdentifierFromProvider,
+	// b2_bucket_file uses file_id field as external name since that's what's used for import
+	"b2_bucket_file": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
