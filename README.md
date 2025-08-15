@@ -1,9 +1,8 @@
 # Crossplane Provider for Backblaze B2
 
-[![CI](https://github.com/markopolo123/provider-backblaze/actions/workflows/ci.yaml/badge.svg)](https://github.com/markopolo123/provider-backblaze/actions/workflows/ci.yaml)
-[![Release](https://github.com/markopolo123/provider-backblaze/actions/workflows/release.yaml/badge.svg)](https://github.com/markopolo123/provider-backblaze/actions/workflows/release.yaml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/markopolo123/provider-backblaze)](https://goreportcard.com/report/github.com/markopolo123/provider-backblaze)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+> As of 20250815 this is no longer published to the upbound marketplace or maintained. Backblaze have declined to enable event notifications for my accounts, which means two things:
+> * I can't test the code here works
+> * It removes my use case for their platform, event driven image processing pipelines.
 
 `provider-backblaze` is a [Crossplane](https://crossplane.io/) provider that enables you to manage [Backblaze B2 Cloud Storage](https://www.backblaze.com/b2/cloud-storage.html) resources directly from Kubernetes. Built using [Upjet](https://github.com/crossplane/upjet), it provides XRM-conformant managed resources for the Backblaze B2 API.
 
